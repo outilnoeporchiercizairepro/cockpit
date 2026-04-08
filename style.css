@@ -15,6 +15,8 @@
     --border: rgba(255, 255, 255, 0.1);
     --font-main: 'Space Mono', monospace;
     --font-heading: 'Bebas Neue', sans-serif;
+    --laser: #ffffff;
+    --laser-glow: rgba(255, 255, 255, 0.5);
 }
 
 html {
@@ -86,23 +88,83 @@ nav {
 }
 
 .nav-cta {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 0.6rem 1.4rem;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0.9rem 2rem;
     cursor: pointer;
-    background: transparent;
+    background: rgba(255,255,255,0.1);
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     text-decoration: none;
     display: inline-block;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
 .nav-cta:hover {
     background: #fff;
     color: #000;
     border-color: #fff;
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* ─── LASER BORDER EFFECT ────────────────────────── */
+.btn-laser {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-laser::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 280deg,
+        var(--laser) 360deg
+    );
+    filter: blur(2px) drop-shadow(0 0 10px var(--laser-glow));
+    animation: rotateLaser 3s linear infinite;
+    z-index: -2;
+}
+
+.btn-laser::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: inherit;
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+/* Specific adjustment for buttons with background colors */
+.btn-primary.btn-laser::after {
+    background: var(--fg);
+}
+
+.btn-outline.btn-laser::after {
+    background: var(--bg);
+}
+
+.nav-cta.btn-laser::after {
+    background: rgba(5, 5, 8, 0.9);
+}
+
+@keyframes rotateLaser {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* ─── HERO ───────────────────────────────────────── */
@@ -230,18 +292,19 @@ nav {
 
 .btn-primary {
     font-family: var(--font-main);
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     background: var(--fg);
     color: var(--bg);
     border: none;
-    padding: 1.2rem 3rem;
+    padding: 1.5rem 4rem;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     font-weight: 700;
     text-decoration: none;
     display: inline-block;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.15);
 }
 
 .btn-primary:hover {
@@ -479,17 +542,18 @@ section {
 
 .btn-outline {
     font-family: var(--font-main);
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--fg);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 1.2rem 3rem;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 1.5rem 4rem;
     cursor: pointer;
     background: transparent;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
+    box-shadow: inset 0 0 0 1px var(--fg);
 }
 
 .btn-outline:hover {
