@@ -150,6 +150,31 @@ nav {
 }
 
 /* Specific adjustment for buttons with background colors */
+.btn-primary.btn-laser {
+    --laser: #00f2ff;
+    --laser-glow: rgba(0, 242, 255, 0.8);
+}
+
+.btn-primary.btn-laser::before {
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 300deg,
+        #fff 330deg,
+        var(--laser) 360deg
+    );
+    filter: blur(1px) 
+            drop-shadow(0 0 15px var(--laser-glow))
+            drop-shadow(0 0 30px var(--laser-glow));
+    animation: rotateLaser 2s linear infinite, laserFlicker 0.1s infinite;
+}
+
+@keyframes laserFlicker {
+    0% { opacity: 0.9; }
+    50% { opacity: 1; }
+    100% { opacity: 0.9; }
+}
+
 .btn-primary.btn-laser::after {
     background: var(--fg);
 }
